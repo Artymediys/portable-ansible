@@ -1,53 +1,48 @@
 # Portable-Ansible
-Чтобы собрать образ с **Ansible**, требуется установленный **Docker**.  
-Базовый образ - `alt:p10` **(AltLinux 10)**.  
+To build the image with **Ansible**, you need to have **Docker** installed.  
+The base image is `alt:p10` **(AltLinux 10)**.
 
-## Содержание образа
-Список устанавливаемых пакетов из репозитория `AltLinux 10`:
+## Image Contents
+List of packages installed from the `AltLinux 10` repository:
 - `glibc`
 - `openssh`
 - `python3`
 - `python3-module-pip`
 
-Список устанавливаемых пакетов с помощью `pip3`:
+List of packages installed using `pip3`:
 - `ansible`
 - `jmespath`
 
-Список устанавливаемых пакетов с помощью `ansible-galaxy`:
+List of packages installed using `ansible-galaxy`:
 - `community.general`
 
-## Сборка образа и пуш в registry
-В текущем репозитории есть 3 файла:
-- `Dockerfile` – код для последующей сборки образа
-- `build_and_push.sh` – скрипт сборки и пуша собранного образа в указанный registry
-- `entrypoint.sh` – код для проверки варианта запуска контейнера
+## Building the Image and Pushing to Registry
+There are 3 files in the current repository:
+- `Dockerfile` – code for subsequent image building
+- `build_and_push.sh` – script for building and pushing the built image to the specified registry
+- `entrypoint.sh` – code for checking the container launch option
 
-В начале скрипта `build_and_push.sh` находится секция с переменными,
-которые необходимо задать для корректного выполнения скрипта:
+At the beginning of the `build_and_push.sh` script, there is a section with variables that need to be set for the script to run correctly:
 - `IMAGE_NAME`
 - `REGISTRY_URL`
 - `LOGIN`
 - `PASSWORD`
 
-Также сборку можно выполнить без пуша в registry с помощью команды `docker build -t ansible-alt10 .`
+You can also build the image without pushing to the registry using the command `docker build -t ansible-alt10 .`
 
-## Запуск и работа с образом
-Образ предполагает два варианта взаимодействия:
-- **интерактивно** – после запуска можно будет
-свободно выполнять любые команды в среде контейнера
-- **автоматически** – сразу выполнить указанную команду
+## Running and Working with the Image
+The image supports two modes of interaction:
+- **interactive** – after launching, you can freely execute any commands in the container environment
+- **automatic** – immediately execute the specified command
 
-Чтобы запустить контейнер в интерактивном режиме из собранного образа,
-надо выполнить следующую команду: `docker run -it --name portable-ansible ansible-alt10`
+To run the container in interactive mode from the built image, execute the following command: `docker run -it --name portable-ansible ansible-alt10`
 
-Также есть вариант запустить контейнер одноразово и с монтированием директории:
+There is also an option to run the container once with directory mounting:
 `docker run -it --rm -v /path/to/your/local/directory:/path/in/container ansible-alt10`
 
-Чтобы запустить контейнер в автоматическом режиме, надо в конце предыдущего примера добавить
-нужную команду и аргументы (если это необходимо):
+To run the container in automatic mode, add the desired command and arguments (if necessary) to the end of the previous example:
 `docker run -it --rm -v /path/to/your/local/directory:/path/in/container ansible-alt10 ansible-playbook --version`
 
-_P.S. В автоматическом режиме можно обойтись и без флага `-it`, но использование этого флага позволит Докеру создать
-интерактивную сессию терминала внутри контейнера, что может быть полезно для повышения читабельности вывода команд._
+_P.S. In automatic mode, you can omit the `-it` flag, but using this flag allows Docker to create an interactive terminal session inside the container, which can be useful for improving the readability of command output._
 
-Выход из интерактивного режима и завершение работы контейнера возможен с помощью сочетания клавиш: `Ctrl + D`
+You can exit interactive mode and stop the container by pressing: `Ctrl + D`

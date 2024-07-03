@@ -7,9 +7,10 @@ RUN apt-get update && apt-get install -y \
     openssh \
     python3 \
     python3-module-pip && \
-    pip3 install ansible jmespath && \
+    pip3 install ansible jmespath psycopg2-binary && \
     ansible-galaxy collection install community.general && \
     ansible-galaxy collection install community.general --upgrade && \
+    ansible-galaxy collection install community.postgresql && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     chmod +x /entrypoint.sh

@@ -41,10 +41,14 @@ The image supports two modes of interaction:
 To run the container in interactive mode from the built image, execute the following command: `docker run -it --name portable-ansible ansible-alt10`
 
 There is also an option to run the container once with directory mounting:
-`docker run -it --rm -v /path/to/your/local/directory:/path/in/container ansible-alt10`
+```bash
+docker run -it --rm -v /path/to/your/local/directory:/path/in/container ansible-alt10
+```
 
 To run the container in automatic mode, add the desired command and arguments (if necessary) to the end of the previous example:
-`docker run -it --rm -v /path/to/your/local/directory:/path/in/container ansible-alt10 ansible-playbook --version`
+```bash
+docker run -it --rm -v /path/to/your/local/directory:/path/in/container ansible-alt10 ansible-playbook --version
+```
 
 _P.S. In automatic mode, you can omit the `-it` flag, but using this flag allows Docker to create an interactive terminal session inside the container, which can be useful for improving the readability of command output._
 

@@ -6,15 +6,18 @@ The base image is `alt:p10` **(AltLinux 10)**.
 List of packages installed from the `AltLinux 10` repository:
 - `glibc`
 - `openssh`
+- `sshpass`
 - `python3`
 - `python3-module-pip`
 
 List of packages installed using `pip3`:
 - `ansible`
 - `jmespath`
+- `psycopg2-binary`
 
 List of packages installed using `ansible-galaxy`:
 - `community.general`
+- `community.postgresql`
 
 ## Building the Image and Pushing to Registry
 There are 3 files in the current repository:

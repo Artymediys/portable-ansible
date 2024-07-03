@@ -5,6 +5,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN apt-get update && apt-get install -y \
     glibc \
     openssh \
+    sshpass \
     python3 \
     python3-module-pip && \
     pip3 install ansible jmespath psycopg2-binary && \
